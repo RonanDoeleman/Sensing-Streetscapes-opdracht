@@ -1,0 +1,321 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0
+}
+
+/* Header Opmaak */
+
+.container-header {
+    position: relative;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    height: 58em;
+}
+
+.amsterdam-image{
+    opacity: .6;
+}
+
+.container-header h1{
+    font-size: 8em;
+    color: #00826a;
+    margin-bottom: 0;
+    min-width: 15em;
+    margin-bottom: 1em;
+}
+
+.container-header h3{
+    font-size: 2em;
+    color: black;
+}
+
+.centered {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.down-arrow{
+    text-align: center;
+    font-size: 3.5em;
+    margin-bottom: 1em;
+    margin-top: -.5em;
+}
+
+/* Uitleg over de tool */
+
+.scale{
+    padding-left: 3rem;
+}
+
+.scale h1{
+    margin-bottom: 1em;
+}
+
+.tool-usage{
+    width: 100%;
+    display: flex;
+    margin-bottom: 3em;
+}
+
+.tool-usage h2{
+    color: white;
+    font-size: 2em;
+}
+
+.tool-usage p{
+    color: white;
+    word-spacing: 2px;
+}
+
+.color1{
+    background-color: #025144;
+    width: 33.3%;
+    padding: 3em;
+}
+
+.color2{
+    background-color: #005c4b;
+    width: 33.3%;
+    padding: 3em;
+}
+
+.color3{
+    background-color: #00715c;
+    width: 33.4%;
+    padding: 3em;
+}
+
+/* Styling van de tool zelf */
+
+#amsterdamMap { 
+    height: 500px;
+    margin: 2rem 0;
+}
+
+h1{
+    font-size: 3em;
+}
+
+p{
+    max-width: 40em;
+    font-size: 1.1em;
+}
+
+.container{
+    display: flex;
+    margin-bottom: 1em;
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+  
+  .container input:checked ~ .checkmark {
+    background-color: #00a284;
+}
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+  .container input:checked ~ .checkmark:after {
+    display: block;
+}
+  
+  .container .checkmark:after {
+       top: 9px;
+      left: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+}
+
+.radio-button-options{
+    display: flex;
+}
+
+label{
+    font-size: 1em;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.info.leaflet-control{
+    font-size: 1.5em;
+}
+
+.info.leaflet-control b{
+    font-size: 1.5em;
+    color: #00715c;
+}
+
+.info.legend.leaflet-control{
+    font-size: 1.3em;
+    color: black;
+}
+
+.additional-information{
+    display: flex;
+    margin-bottom: 5em;
+}
+
+.scale-image{
+    width: 70%;
+    height: auto; 
+    align-items: center;
+}
+
+.index-information{
+    width: 50%;
+    margin-left: 2rem;
+}
+
+li{
+    text-decoration: none;
+    list-style: none;
+    display: flex;
+    font-weight: 700;
+    font-size: 1.2em;
+    margin-left: 12em;
+}
+
+.scale-bar{
+    margin-left: 4em;
+}
+
+.scale-bar-slider{
+    display: flex;
+
+}
+
+.scale-bar-slider h2{
+    margin-top: 1em;
+}
+
+.option1{
+    background-color: #1a9850;
+    width: 120px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.option1:hover, .option1:focus{
+    border: 2px solid black; 
+}
+
+.option2{
+    background-color: #a6d96a;
+    width: 120px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.option2:hover, .option2:focus{
+    border: 2px solid black; 
+}
+
+.option3{
+    background-color: #fee08b;
+    width: 80px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.option3:hover, .option3:focus{
+    border: 2px solid black; 
+}
+
+.option4{
+    background-color: #fdae61;
+    width: 80px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.option4:hover, .option4:focus{
+    border: 2px solid black; 
+}
+
+.option5{
+    background-color: #f46d43;
+    width: 80px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.option5:hover, .option5:focus{
+    border: 2px solid black; 
+}
+
+.option6{
+    background-color: #d73027;
+    width: 80px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.option6:hover, .option6:focus{
+    border: 2px solid black; 
+}
+
+.option7{
+    background-color: #bd0d0d;
+    width: 120px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.option7:hover, .option7:focus{
+    border: 2px solid black; 
+}
