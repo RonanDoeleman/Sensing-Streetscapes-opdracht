@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin="">
+    </script>
+
+    <title>Interactive map with GeoJSON</title>
+
+    <link rel="stylesheet" href="./style.css">
+  </head>
+
+  <body>
+    <header>
+      <div class="container-header">
+        <img class="amsterdam-image" src="images/amsterdam.jpeg" alt="Amsterdam" >
+        <div class="centered">
+          <h1>Sensing Streetscapes</h1>
+          <h3>Ontdek en vergelijk de veiligheid in Amsterdam</h3>
+        </div>
+      </div>
+    </header>
+    <div class="down-arrow">
+      <span>&#8595;</span>
+    </div>
+
+    <div class="scale">
+      <h1>Hoe werkt de tool?</h1>
+    </div>
+    
+
+    <div class="tool-usage">
+      <div class="color1">
+        <h2>1. Niveau kiezen</h2>
+          <p>
+            Je kan de Amsterdamse kaart op verschillende niveau's bekijken. 
+             Het hoogste niveau is op stadsdeelniveau, als je verder wil inzoomen kan je Amsterdam
+             ook op wijk- en buurtniveau bekijken. Door op de filters te klikken zal de data veranderen.
+          </p>
+      </div>
+      <div class="color2">
+        <h2>2. Vergelijken</h2>
+          <p>
+            Door over een stadsdeel wijk of buurt te hoveren met je muis zie je gelijk de bijbehorende 
+            indexcijfers. Wij hebben gekeken naar de criminaliteits-en veiligheidsbelevingsindex.
+            Je kan de buurten met elkaar vergelijken en ziet door de kleuren gelijk hoe het gesteld is in die 
+            buurt of wijk. Ook zie je aanvullende informatie en historische grafieken over de benoemde indexen.
+            Als je een Amsterdamse buurt wil vinden met vergelijkbare statistieken, kan het algoritme deze vinden
+            door rechtsonderaan op de schaal chart te drukken.
+          </p>
+          <br>
+          <p>
+            Natuurlijk kan je zelf ook op ontdekking gaan en buurten met elkaar vergelijken door deze aan te klikken.
+            De cijfers hiervan zullen dan ook verschijnen en de bijbehorende grafieken zullen getoond worden.
+          </p>
+      </div>
+      <div class="color3">
+        <h2>3. Amsterdamse veiligheid door de jaren heen</h2>
+          <p>
+            Als je zou willen zien hoe de cijfers over de veiligheid van Amsterdam er de afgelopen jaren eruitzag, 
+            kan je in de verschenen grafieken de indexcijfers door de jaren heen bekijken.
+          </p>
+      </div>
+
+    </div>
+
+    <div class="scale">
+      <h1>Verschillende indexcijfers van Amsterdam in kaart gebracht</h1>
+    </div>
+      
+    <div class="radio-button-options">
+      
+        <div class="scale">
+          <h3>Criminaliteitsindex:</h3>
+            <label class="container">Stadsdelen
+              <input type="radio" value="stadsdelen" name="data" id="stadsdelen" checked onclick="toggleDifferentData()">
+              <span class="checkmark"></span>
+          </label>
+          <label class="container">Wijken
+          <input type="radio" value="wijken" name="data" id="wijken" onclick="toggleDifferentData()">
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">Buurten
+          <input type="radio" value="buurten" name="data" id="buurten" onclick="toggleDifferentData()">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    
+      <div class="scale">
+        <h3>Veiligheidsindex:</h3>
+        <label class="container">Stadsdelen
+          <input type="radio" value="buurten" name="data" id="veiligheid" onclick="toggleDifferentData()">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+    
+
+      <div id="amsterdamMap"></div>
+
+    <div class="additional-information">
+      <div class="index-information">
+        <h3>Wat is een indexcijfer?</h3>
+        <p>Een indexcijfer is een verhoudingsgetal waarmee de grootte wordt bepaald van een bepaald 
+          verschijnsel ten opzichte van datzelfde verschijnsel in een andere periode. 
+          <br></br>
+          2014 is het eikjaar gesteld waarbij de index begon op het getal 100. Als het daaropvolgende jaar het indexcijfer
+          verhoogd wordt naar bijvoorbeeld 110, betekent het dat er in het jaar daarop meer criminaliteit is geweest.
+          Als het getal bijvoorbeeld verlaagd werd naar 90, betekent het dat er minder criminaliteit is geweest in 
+          het daaropvolgende jaar.</p>
+      </div>
+
+      <div class="scale-bar">
+        <h3>Schaal:</h3>
+        <li>
+          <ul>< Minder</ul>
+          <ul>Gemiddeld</ul>
+          <ul>Meer ></ul>
+        </li>
+        <div class="scale-bar-slider">
+          <div class="option1" tabindex="1"><h2>35</h2></div>
+          <div class="option2" tabindex="1"><h2>55</h2></div>
+          <div class="option3" tabindex="1"><h2>75</h2></div>
+          <div class="option4" tabindex="1"><h2>85</h2></div>
+          <div class="option5" tabindex="1"><h2>95</h2></div>
+          <div class="option6" tabindex="1"><h2>105</h2></div>
+          <div class="option7" tabindex="1"><h2>115+</h2></div>
+        </div>
+      </div>
+    </div>
+
+    
+      
+
+      
+  </body>
+  <script src="index.js"></script>
+  <script src="datasets.js"></script>
+</html>
