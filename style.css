@@ -319,3 +319,55 @@ li{
 .option7:hover, .option7:focus{
     border: 2px solid black; 
 }
+
+.container1{
+    background-color: #d73027;
+    cursor: pointer;
+    color: #d73027;
+}
+
+label{
+    font-size: 1.1em;
+}
+
+.container1 input {
+    position: absolute;
+    opacity: 0;
+    color: #d73027;
+    cursor: pointer;
+}
+
+.container1:hover, .container1:focus{
+    border: 2px solid black; 
+}
+
+.filter h2{
+    margin: 0;
+}
+
+.container2{
+    background-color: #a6d96a;
+    cursor: pointer;
+    color: #a6d96a;
+}
+
+label{
+    font-size: 1.1em;
+}
+
+.container2 input {
+    position: absolute;
+    opacity: 0;
+    color: #a6d96a;
+    cursor: pointer;
+}
+
+.container2:hover, .container2:focus{
+    border: 2px solid black; 
+}
+
+.filter h2{
+    margin: 0;
+}
+
+

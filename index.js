@@ -17,6 +17,11 @@ const radioWijk = document.getElementById("wijken")
 const radioBuurt = document.getElementById("buurten")
 const radioVeiligheid = document.getElementById("veiligheid")
 
+const filterIndex = document.getElementById("hogeindex")
+const filterIndexSpecificHigh = document.getElementById("index105")
+const filterIndexSpecificLow = document.getElementById("index55")
+
+
 // De gebruikte datasets om data uit op te halen
 
 const stadsgebiedcriminalIndex = {
@@ -394,6 +399,21 @@ function resetHighlight4(e) {
     info.update();
 }
 
+function resetHighlight5(e) {
+    filteredVeiligheidsGeojson.resetStyle(e.target);
+    info.update();
+}
+
+function resetHighlight6(e) {
+    filteredhighVeiligheidsGeojson.resetStyle(e.target);
+    info.update();
+}
+
+function resetHighlight7(e) {
+    filteredlowVeiligheidsGeojson.resetStyle(e.target);
+    info.update();
+}
+
 // Zoom in op een gebied als je op een layer klikt
 
 function zoomToFeature() {
@@ -432,6 +452,50 @@ function onEachFeature4(feature, layer) {
     });
 }
 
+function onEachFeature5(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight5,
+        click: zoomToFeature
+    });
+}
+
+function onEachFeature6(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight6,
+        click: zoomToFeature
+    });
+}
+
+function onEachFeature7(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight7,
+        click: zoomToFeature
+    });
+}
+
+// Filter opties
+
+function filterSelection(feature) {
+    if(feature.properties.criminaliteitsindex >= 100){
+        return true
+    }
+}
+
+function filterSelectionSpecificHigh(feature) {
+    if(feature.properties.criminaliteitsindex >= 105){
+        return true
+    }
+}
+
+function filterSelectionSpecificLow(feature) {
+    if(feature.properties.criminaliteitsindex <= 75){
+        return true
+    }
+}
+
 // Voeg de listeners toe aan de state layers
 
 const criminalGeojson = L.geoJSON(stadsgebiedcriminalIndex, {
@@ -439,46 +503,106 @@ const criminalGeojson = L.geoJSON(stadsgebiedcriminalIndex, {
     onEachFeature: onEachFeature
 }).addTo(mymap);
 
-const safetyGeojson = L.geoJSON(wijkcriminalIndex, {
+const safetyGeojson = L.geoJSON(wijkcriminalIndex,  {
     style: style,
     onEachFeature: onEachFeature2
 }).addTo(mymap);
 
 const buurtGeojson = L.geoJSON(buurtcriminalIndex, {
     style: style,
-    onEachFeature: onEachFeature2
+    onEachFeature: onEachFeature3
 }).addTo(mymap);
 
 const veiligheidsGeojson = L.geoJSON(stadsgebiedsafetyIndex, {
     style: style,
-    onEachFeature: onEachFeature4
+    onEachFeature: onEachFeature4,
 }).addTo(mymap);
+
+const filteredVeiligheidsGeojson = L.geoJSON(stadsgebiedsafetyIndex, {
+    style: style,
+    onEachFeature: onEachFeature5,
+    filter: filterSelection
+}).addTo(mymap);
+
+const filteredhighVeiligheidsGeojson = L.geoJSON(buurtcriminalIndex, {
+    style: style,
+    onEachFeature: onEachFeature6,
+    filter: filterSelectionSpecificHigh
+}).addTo(mymap);
+
+const filteredlowVeiligheidsGeojson = L.geoJSON(buurtcriminalIndex, {
+    style: style,
+    onEachFeature: onEachFeature7,
+    filter: filterSelectionSpecificLow
+}).addTo(mymap);
+
 
 // Stel condities op welke layer getoond moet worden als je op een bepaalde radio button klikt
 
 const toggleDifferentData = () => {
+    
     if (radioStadsgebied.checked) {
        mymap.removeLayer(safetyGeojson)
        mymap.removeLayer(buurtGeojson)
        mymap.removeLayer(veiligheidsGeojson)
+       mymap.removeLayer(filteredVeiligheidsGeojson)
+       mymap.removeLayer(filteredhighVeiligheidsGeojson)
+       mymap.removeLayer(filteredlowVeiligheidsGeojson)
        mymap.addLayer(criminalGeojson)
-
-    } else if (radioWijk.checked) {
+    } 
+    else if (radioWijk.checked) {
         mymap.removeLayer(criminalGeojson)
         mymap.removeLayer(veiligheidsGeojson)
         mymap.removeLayer(buurtGeojson)
+        mymap.removeLayer(filteredVeiligheidsGeojson)
+        mymap.removeLayer(filteredhighVeiligheidsGeojson)
+        mymap.removeLayer(filteredlowVeiligheidsGeojson)
         mymap.addLayer(safetyGeojson)
-
-    } else if (radioBuurt.checked) {
+    } 
+    else if (radioBuurt.checked) {
         mymap.removeLayer(criminalGeojson)
         mymap.removeLayer(veiligheidsGeojson)
         mymap.removeLayer(safetyGeojson)
+        mymap.removeLayer(filteredVeiligheidsGeojson)
+        mymap.removeLayer(filteredhighVeiligheidsGeojson)
+        mymap.removeLayer(filteredlowVeiligheidsGeojson)
         mymap.addLayer(buurtGeojson)
-    } else {
+    } 
+    else if(radioVeiligheid.checked) {
         mymap.removeLayer(criminalGeojson)
         mymap.removeLayer(buurtGeojson)
         mymap.removeLayer(safetyGeojson)
+        mymap.removeLayer(filteredVeiligheidsGeojson)
+        mymap.removeLayer(filteredhighVeiligheidsGeojson)
+        mymap.removeLayer(filteredlowVeiligheidsGeojson)
         mymap.addLayer(veiligheidsGeojson)
+    } 
+    else if(filterIndexSpecificHigh.checked) {
+        mymap.removeLayer(criminalGeojson)
+        mymap.removeLayer(buurtGeojson)
+        mymap.removeLayer(safetyGeojson)
+        mymap.removeLayer(veiligheidsGeojson)
+        mymap.removeLayer(filteredVeiligheidsGeojson)
+        mymap.removeLayer(filteredlowVeiligheidsGeojson)
+        mymap.addLayer(filteredhighVeiligheidsGeojson)
+    }
+    else if(filterIndexSpecificLow.checked) {
+        mymap.removeLayer(criminalGeojson)
+        mymap.removeLayer(buurtGeojson)
+        mymap.removeLayer(safetyGeojson)
+        mymap.removeLayer(veiligheidsGeojson)
+        mymap.removeLayer(filteredVeiligheidsGeojson)
+        mymap.removeLayer(filteredhighVeiligheidsGeojson)
+        mymap.addLayer(filteredlowVeiligheidsGeojson)
+    }
+    else {
+        mymap.removeLayer(criminalGeojson)
+        mymap.removeLayer(buurtGeojson)
+        mymap.removeLayer(safetyGeojson)
+        mymap.removeLayer(veiligheidsGeojson)
+        mymap.removeLayer(filteredhighVeiligheidsGeojson)
+        mymap.removeLayer(filteredlowVeiligheidsGeojson)
+        mymap.addLayer(filteredVeiligheidsGeojson)
     }
 }
 
@@ -494,11 +618,24 @@ info.onAdd = function (mymap) {
     return this._div;
 };
 
+const getNameIndexes = () => {
+    if(radioVeiligheid.checked) {
+        return "Veiligheidsindex"
+    } 
+    else if(filterIndex.checked) {
+        return "Veiligheidsindex"
+    } 
+    else {
+        return "Criminaliteitsindex"
+    }
+}
+
 // Dit zorgt ervoor dat de juiste naam en data komt te staan bij het bijbehorende gebied
 info.update = function (props) {
-    this._div.innerHTML = '<h3>Indexcijfer per gebied</h3>' +  (props ?
-        '<b>' + props.name + '</b><br/>' + '</b><br/>' + props.criminaliteitsindex + ' Criminaliteitsindex '
-        : 'Selecteer het gewenste deel, wijk of buurt');
+    this._div.innerHTML = `<h3>${getNameIndexes()} per gebied</h3> ${
+        props 
+        ? `<b>${props.name}</b><br/><br/>${props.criminaliteitsindex} ${getNameIndexes()}`
+        : 'Selecteer het gewenste deel, wijk of buurt'}`;
 };
 
 info.addTo(mymap);
@@ -524,4 +661,3 @@ legenda.onAdd = function (mymap) {
 };
 
 legenda.addTo(mymap);
-
